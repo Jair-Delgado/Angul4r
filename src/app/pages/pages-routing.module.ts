@@ -10,8 +10,6 @@ import { AuthModule } from '../auth/auth.module';
 
 
 const routes: Routes = [
-  //rutas protegidad
-
   {
     path: 'dashboard', component: PagesComponent,
     children: [
@@ -21,9 +19,6 @@ const routes: Routes = [
       {path:'',redirectTo:'/dashboard',pathMatch:'full'},
     ]
   }
-  //{path:'**',component:NoFoundComponent},
-
-
 ]
 
 

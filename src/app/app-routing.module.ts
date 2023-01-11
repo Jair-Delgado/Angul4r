@@ -7,13 +7,9 @@ import { NoFoundComponent } from './no-found/no-found.component';
 
 
 const routes :Routes =[
-
   {path:'',redirectTo:'/dashboard',pathMatch:'full'},
   {path:'**',component:NoFoundComponent},
-
-
 ]
-
 @NgModule({
   declarations: [],
   imports: [
