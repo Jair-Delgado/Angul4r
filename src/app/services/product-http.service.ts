@@ -1,23 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductHttpService } from '../../services/product-http.service';
 
-@Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class ProductComponent implements OnInit {
+export class ProductHttpService {
 
-  constructor(private productHttp:ProductHtppService) { }
+  constructor(private httpClient:HttpClient) { }
 
-  ngOnInit(): void {
-    //this.getProducts();
-    //this.getProduct();
-    //this.createProduct();
-    //this.updateProduct();
-    //this.deleteProduct();
-  }
   getProducts(){
     const url = 'https://api.escuelajs.co/api/v1/products'; 
     const response = this.httpClient.get(url).subscribe
@@ -54,13 +44,6 @@ export class ProductComponent implements OnInit {
      const url = 'https://api.escuelajs.co/api/v1/products/282';
     this.httpClient.put(url,data).subscribe
     (response=> {console.log(response);
-    });
-  }
-
-  deleteProduct(){
-     const url = 'https://api.escuelajs.co/api/v1/products/282';
-    this.httpClient.delete(url).subscribe
-    (response=> {console.log(response);
-    });
+    }); 
   }
 }

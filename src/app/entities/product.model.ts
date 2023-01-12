@@ -5,5 +5,6 @@ export interface ProductModel {
     title:string;
     price:number;
     descripcion:string;
+    images:string[];
     category:CategoryModel;
 }
