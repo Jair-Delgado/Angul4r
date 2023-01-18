@@ -1,49 +1,37 @@
-/*import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CreateProductModelDto, ProductModel, UpdateProductModelDto } from '../entities/product.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class ProductHttpService {
 
-  constructor(private httpClient:HttpClient) { }
+  readonly API_URL ='https://api.escuelajs.co/api/v1/products';
 
-  getProducts(){
-    const url = 'https://api.escuelajs.co/api/v1/products'; 
-    const response = this.httpClient.get(url).subscribe
-    (response=> {console.log(response);
-    });
-  }
-  getProduct(){
-    const response = this.httpClient.get('api.escuelajs.co/api/v1/products/8').subscribe
-    (response=> {console.log(response);
-    });
-  }
-  createProduct(){
-    const data ={
-      title: 'Libros',
-      price: 15,
-      description: 'Utiles escolares / Jair Delgado',
-      images:["https://api.lorem.space/image?w=640&h=480&r=3575"],
-      categoryId: 1
-    }
-     const url = 'https://api.escuelajs.co/api/v1/products';
-    this.httpClient.post(url,data).subscribe
-    (response=> {console.log(response);
-    });
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  updateProduct(){
-    const data ={
-      title: 'camisas polo',
-      price: 20,
-      description: 'Camisa de vestir / Jair Delgado',
-      images:["https://api.lorem.space/image?w=640&h=480&r=3575"],
-      categoryId: 1
-    }
-     const url = 'https://api.escuelajs.co/api/v1/products/282';
-    this.httpClient.put(url,data).subscribe
-    (response=> {console.log(response);
-    }); 
+  getAll():Observable<ProductModel[]> {
+    const url = `${this.API_URL}`;
+    return this.httpClient.get<ProductModel[]>(url);
   }
-}*/
+  getOne(id:ProductModel['id']):Observable<ProductModel> {
+    const url = `${this.API_URL}/${id}`;
+    return this.httpClient.get<ProductModel>(url);
+  }
+  store(product:CreateProductModelDto) {
+    const url = `${this.API_URL}`;
+    return this.httpClient.post(url, product);
+  }
+  update(id:ProductModel['id'], product: UpdateProductModelDto) {
+    const url = `${this.API_URL}/${id}`
+    return this.httpClient.put(url, product);
+    
+  }
+  destroy(id:ProductModel['id']) {
+    const url = `${this.API_URL}/${id}`
+    return this.httpClient.delete(url);
+  }
+}
