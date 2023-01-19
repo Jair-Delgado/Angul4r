@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CreateProductModelDto, ProductModel, UpdateProductModelDto } from '../entities/product.model';
 
 @Injectable({
@@ -28,10 +28,10 @@ export class ProductHttpService {
   update(id:ProductModel['id'], product: UpdateProductModelDto) {
     const url = `${this.API_URL}/${id}`
     return this.httpClient.put(url, product);
-    
   }
-  destroy(id:ProductModel['id']) {
+  destroy(id:ProductModel['id']):Observable<any> {
     const url = `${this.API_URL}/${id}`
-    return this.httpClient.delete(url);
+    return this.httpClient.delete<any>(url).
+    pipe(map((response:{rta:boolean})=>{return response.rta;}));
   }
 }
